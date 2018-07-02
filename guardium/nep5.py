@@ -3,7 +3,7 @@ from boa.interop.Neo.Action import RegisterAction
 from boa.interop.Neo.Storage import *
 from boa.builtins import concat
 
-from nex.token import *
+from guardium.token import *
 
 
 OnTransfer = RegisterAction('transfer', 'addr_from', 'addr_to', 'amount')

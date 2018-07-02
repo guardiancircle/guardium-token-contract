@@ -1,5 +1,7 @@
-venv
-*.pyc
 *.avm
+*.pyc
+*.sublime-*
+.gitignore
 .idea
 __pycache__
+venv

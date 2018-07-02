@@ -1,17 +1,17 @@
 """
-NEX ICO Template
+Guardium GUARD token template
 ===================================
 
-Author: Thomas Saunders
-Email: tom@neonexchange.org
+Author: Chris Hayes
+Email: tech@guardium.co
 
-Date: Dec 11 2017
+Date: Jul 2 2017
 
 """
-from nex.txio import get_asset_attachments
-from nex.token import *
-from nex.crowdsale import *
-from nex.nep5 import *
+from guardium.txio import get_asset_attachments
+from guardium.token import *
+from guardium.crowdsale import *
+from guardium.nep5 import *
 from boa.interop.Neo.Runtime import GetTrigger, CheckWitness
 from boa.interop.Neo.TriggerType import Application, Verification
 from boa.interop.Neo.Storage import *
