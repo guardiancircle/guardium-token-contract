@@ -1,99 +1,31 @@
-<p align="center">
-  <img
-    src="http://neonexchange.org/img/NEX-logo.svg"
-    width="125px;">
-    
-</p>
-<h3 align="center">Neo ICO Template</h3>
-<p align="center">A template for NEP5 Compliant Tokens on the NEO platform</p>
-<hr/>
+<center>
+![Guardium Logo](https://raw.githubusercontent.com/guardiancircle/guardium-token-contract/master/guardium_logo.png)
 
-#### Considerations
+# GUARDIUM Token v2.0 (GUARD)
+</center>
+<hr>
 
-An article describing this template is available here:
+### GUARD Overview
+Guardium v2.0 (GUARD) is built to replace v1.0 (GDM). Functionally the token is identical, token counts are identical and all GUARD is to be distributed via airdrop to original GDM holders matching their current holdings.
 
-https://medium.com/neon-exchange/nex-ico-template-4ca7ba19fc8b
-
-#### Requirements
-
-Usage requires Python 3.6+
+On \<Date TBD\> all GDM will be deprecated in the Guardium/Guardian Circle ecosystem.
 
 
-#### Installation
+### Justification for v2.0
+In June 2018 a vulnerability was discovered in the open-source ico-contract that the Guardium v1.0 contract was derived from.
 
-Clone the repository and navigate into the project directory. 
-Make a Python 3 virtual environment and activate it via
+This vulnerability permitted the incrementation of integers on known variables. Admittedly this was a serious flaw however it's not all bad. In ordered to increment a variable one had to burn their own GDM. 
 
-```shell
-python3 -m venv venv
-source venv/bin/activate
-```
+E.G. one could have incremented the total GDM supply count but in order to do so they must spend their own GDM in effect leaving the functional total token count in circulation lower (theoretically increasing individual token values) but leaving the overall token count returned by NEP-5 *totalSupply* method innacurate.
 
-or to explicitly install Python 3.6 via
+### Token Economy Risks
+The switch to GUARD is inherently being made to ensure the value and utility of Guardium going forward. Each holder of GDM will receive an equal amount of GUARD making it a 1:1 swap with no fewer/more GUARD tokens in circulation.
 
-    virtualenv -p /usr/local/bin/python3.6 venv
-    source venv/bin/activate
+In short the GUARD token is a "drop-in" replacement for GDM that will be honored in exactly the same manner as GDM was intended within the Guardium/GUARD ecosystem.
 
-Then install the requirements via
+### Exchanges
+To the the best of our knowledge GDM is not yet listed on any exchanges (the token sale only concluded a month ago) and as such impact should be non-existant/minimal.
 
-```shell
-pip install -r requirements.txt
-```
-
-#### Compilation
-
-The template may be compiled as follows
-
-```python
-from boa.compiler import Compiler
-
-Compiler.load_and_save('ico_template.py')
-```
-
-
-This will compile your template to `ico_template.avm`
-
-
-
-#### Running tests
-
-1. Install `requirements_test.txt`
-
-``` 
-pip install -r requirements_test.txt
-
-```
-
-2. Run tests
-
-``` 
-python -m unittest discover tests
-```
-
-#### Testnet Deployed Details
-
-For testing purposes, this template is deployed on testnet with the following contract script hash:
-
-`0b6c1f919e95fe61c17a7612aebfaf4fda3a2214`
-
-```json
-{
-    "code": {
-        "parameters": "0710",
-        "hash": "0b6c1f919e95fe61c17a7612aebfaf4fda3a2214",
-        "returntype": 5,
-        "script": ".. omitted .."
-    },
-    "version": 0,
-    "code_version": ".2",
-    "name": "NEX Ico Template",
-    "author": "localhuman",
-    "description": "An ICO Template",
-    "properties": {
-        "dynamic_invoke": false,
-        "storage": true
-    },
-    "email": "tom@neonexchange.org"
-}
-```
+### Wallets
+All of the wallets that support GDM are updating to support GUARD tokens going forward.
 
