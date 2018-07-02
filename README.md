@@ -1,9 +1,6 @@
-<center>
 ![Guardium Logo](https://raw.githubusercontent.com/guardiancircle/guardium-token-contract/master/guardium_logo.png)
 
 # GUARDIUM Token v2.0 (GUARD)
-</center>
-<hr>
 
 ### GUARD Overview
 Guardium v2.0 (GUARD) is built to replace v1.0 (GDM). Functionally the token is identical, token counts are identical and all GUARD is to be distributed via airdrop to original GDM holders matching their current holdings.
