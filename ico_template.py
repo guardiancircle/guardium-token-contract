@@ -97,7 +97,8 @@ def deploy():
     if not Get(ctx, 'initialized'):
         # do deploy logic
         Put(ctx, 'initialized', 1)
-        Put(ctx, TOKEN_OWNER, TOKEN_INITIAL_AMOUNT)
+        Put(ctx, concat('g_', TOKEN_OWNER), TOKEN_INITIAL_AMOUNT)
+        print("GUARD token has been deployed")
         return add_to_circulation(ctx, TOKEN_INITIAL_AMOUNT)
 
     return False
