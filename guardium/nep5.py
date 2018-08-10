@@ -90,87 +90,102 @@ def do_transfer(ctx, t_from, t_to, amount):
     return False
 
 
-def do_transfer_from(ctx, t_originator, t_from, t_to, amount):
+def do_transfer_from(ctx, originator, tx_from, tx_to, amount):
 
     if amount <= 0:
         return False
 
-    # check the transaction t_originator matches the address initiating the transfer
-    if CheckWitness(t_originator):
+    if len(tx_to) != 20:
+        print("Aborting, To address is invalid")
+        return False
 
-        if t_from == t_to:
-            print("Aborting, from and to addresses are the same")
-            return False
+    if len(tx_from) != 20:
+        print("Aborting, From address is invalid")
+        return False
 
-        available_key = concat('g_', t_from, t_to)
+    if len(originator) != 20:
+        print("Aborting, Originator address is invalid")
+        return False
 
-        # if addresses lengths are invalid abort the transaction
-        if len(available_key) != 42:
-            return False
+    if tx_from == tx_to:
+        print("Aborting, From and To addresses are the same")
+        return False
 
-        available_to_to_addr = Get(ctx, available_key)
+    # check the transaction originator matches the address initiating the transfer
+    if not CheckWitness(originator):
+        print("Originator address is not the TX sender")
+        return False
 
-        if available_to_to_addr < amount:
-            print("Insufficient funds approved")
-            return False
+    allowance_key = concat(tx_from, originator)
+    allowance = Get(ctx, allowance_key)
 
-        from_balance = Get(ctx, concat('g_', t_from))
+    if allowance < amount:
+        print("Insufficient funds in allowance")
+        return False
 
-        if from_balance < amount:
-            print("Insufficient tokens in from balance")
-            return False
+    tx_from_balance = Get(ctx, concat('g_', tx_from))
 
-        to_balance = Get(ctx, concat('g_', t_to))
+    if tx_from_balance < amount:
+        print("Insufficient tokens in from balance")
+        return False
 
-        # credit the address being sent funds
-        Put(ctx, concat('g_', t_to), to_balance + amount)
+    tx_to_balance = Get(ctx, concat('g_', tx_to))
 
-        # debit the address sending funds
-        Put(ctx, concat('g_', t_from), from_balance - amount)
+    # credit the address being sent funds
+    credit_amount = tx_to_balance + amount
+    Put(ctx, concat('g_', tx_to), credit_amount)
 
-        print("transfer complete")
+    # debit the address sending funds
+    debit_amount = tx_from_balance - amount
+    Put(ctx, concat('g_', tx_from), debit_amount)
 
-        new_allowance = available_to_to_addr - amount
+    print("transfer complete")
 
-        if new_allowance == 0:
-            print("balance is zero, removing storage key")
-            Delete(ctx, available_key)
-        else:
-            print("updating allowance to new allowance")
-            Put(ctx, available_key, new_allowance)
+    new_allowance = allowance - amount
 
-        OnTransfer(t_from, t_to, amount)
-
-        return True
-
+    if new_allowance == 0:
+        print("balance is zero, removing storage key")
+        Delete(ctx, allowance_key)
     else:
-        print("originator address is not the tx sender")
+        print("updating allowance to new allowance")
+        Put(ctx, allowance_key, new_allowance)
+
+    OnTransfer(tx_from, tx_to, amount)
+
+    return True
+
+
+def do_approve(ctx, tx_owner, tx_spender, amount):
+
+    if len(tx_spender) != 20:
         return False
 
-
-def do_approve(ctx, t_owner, t_spender, amount):
-
-    if len(t_spender) != 20:
-        return False
-
-    if not CheckWitness(t_owner):
+    if not CheckWitness(tx_owner):
         return False
 
     if amount < 0:
         return False
 
-    approval_key = concat('g_', t_owner, t_spender)
+    allowance_key = concat(tx_owner, tx_spender)
 
     if amount == 0:
-        Delete(ctx, approval_key)
+        Delete(ctx, allowance_key)
     else:
-        Put(ctx, approval_key, amount)
+        Put(ctx, allowance_key, amount)
 
-    OnApprove(t_owner, t_spender, amount)
-
+    OnApprove(tx_owner, tx_spender, amount)
     return True
 
 
-def do_allowance(ctx, t_owner, t_spender):
+def do_allowance(ctx, tx_owner, tx_spender):
 
-    return Get(ctx, concat('g_', t_owner, t_spender))
+    if len(tx_spender) != 20:
+        print("Aborting, To address is invalid")
+        return False
+
+    if len(tx_owner) != 20:
+        print("Aborting, From address is invalid")
+        return False
+
+    allowance_key = concat(tx_owner, tx_spender)
+    return Get(ctx, allowance_key)
