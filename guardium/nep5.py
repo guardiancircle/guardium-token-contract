@@ -33,7 +33,7 @@ def handle_nep51(ctx, operation, args):
             return do_transfer(ctx, args[0], args[1], args[2])
 
     elif operation == 'transferFrom':
-        if len(args) == 3:
+        if len(args) == 4:
             return do_transfer_from(ctx, args[0], args[1], args[2], args[3])
 
     elif operation == 'approve':
