@@ -18,7 +18,7 @@ from boa.interop.Neo.Storage import *
 TOKEN_OWNER = b'\xb3\xc0\xa3\xef\\\x98\x94\xdf\xfb\x07B\xb5\xc8\x18\xa7\x07"\x19\xc27'  # MAIN & TESTNET
 
 
-TOKEN_NAME = 'Guardium'
+TOKEN_NAME = 'Guardium GUARD'
 TOKEN_SYMBOL = 'GUARD'
 TOKEN_DECIMALS = 8
 TOKEN_INITIAL_AMOUNT = 80803317 * 100000000  # 80,803,317 * 10^8
